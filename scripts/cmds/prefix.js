@@ -1,55 +1,24 @@
 const fs = require("fs-extra");
-const { utils } = global;
-const moment = require("moment-timezone");
 
 module.exports = {
   config: {
     name: "prefix",
-    version: "1.4",
-    author: "NTKhang",
+    version: "1.3",
+    author: "NTKhang",// edited by Elohime Hatake
     countDown: 5,
     role: 0,
-    shortDescription: "Change bot's prefix",
-    longDescription: "Change the command prefix of the bot in your chat box or the entire bot system (admin only)",
+    shortDescription: "Change the prefix of the bot",
+    longDescription: "Change the bot command mark in your chat box or the whole bot system (only admin bot)",
     category: "config",
     guide: {
-      vi: "   {pn} <new prefix>: change the prefix in your chat box"
-        + "\nExample:"
-        + "\n{pn} #"
-        + "\n{pn} <new prefix> -g: change the prefix in the bot system (admin only)"
-        + "\nExample:"
-        + "\n{pn} # -g"
-        + "\n{pn} reset: reset the prefix in your chat box to default",
-      en: "   {pn} <new prefix>: change the prefix in your chat box"
-        + "\nExample:"
-        + "\n{pn} #"
-        + "\n{pn} <new prefix> -g: change the prefix in the bot system (admin only)"
-        + "\nExample:"
-        + "\n{pn} # -g"
-        + "\n{pn} reset: reset the prefix in your chat box to default"
+      en: "   {pn} <𝐧𝐞𝐰 𝐏𝐫𝐞𝐟𝐢𝐱>: 𝐂𝐡𝐚𝐧𝐠𝐞 𝐍𝐞𝐰 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐧 𝐘𝐨𝐮𝐫 𝐂𝐡𝐚𝐭 𝐁𝐨𝐱"          + "\n   𝐄𝐱𝐚𝐦𝐩𝐥𝐞:"          + "\n    {pn} "          + "\n\n   {pn} <𝐧𝐞𝐰 𝐏𝐫𝐞𝐟𝐢𝐱> -𝐠: 𝐂𝐡𝐚𝐧𝐠𝐞 𝐍𝐞𝐰 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐧 𝐒𝐲𝐬𝐭𝐞𝐦 𝐁𝐨𝐭 (𝐨𝐧𝐥𝐲 𝐀𝐝𝐦𝐢𝐧 𝐁𝐨𝐭)"          + "\n   𝐄𝐱𝐚𝐦𝐩𝐥𝐞:"          + "\n    {pn} -𝐠"          + "\n\n   {pn} 𝐑𝐞𝐬𝐞𝐭: 𝐂𝐡𝐚𝐧𝐠𝐞 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐧 𝐘𝐨𝐮𝐫 𝐁𝐨𝐱 𝐂𝐡𝐚𝐭 𝐓𝐨 𝐃𝐞𝐟𝐚𝐮𝐥𝐭"
     }
   },
 
   langs: {
-    vi: {
-      reset: "The prefix has been reset to default: %1",
-      onlyAdmin: "Only admin can change the prefix of the bot system",
-      confirmGlobal: "Please react to this message to confirm the prefix change for the entire bot system",
-      confirmThisThread: "Please react to this message to confirm the prefix change for your chat box",
-      successGlobal: "The prefix of the bot system has been changed to: %1",
-      successThisThread: "The prefix of your chat box has been changed to: %1",
-      myPrefix: "🌐 Bot System Prefix: %1\nYour Chat Box Prefix: %2\nPhilippines Timezone: %3",
-      philippinesTimezone: "🇵🇭 Philippines Timezone: GMT+8"
-    },
     en: {
-      reset: "Your prefix has been reset to default: %1",
-      onlyAdmin: "Only admin can change the prefix of the bot system",
-      confirmGlobal: "Please react to this message to confirm the prefix change for the entire bot system",
-      confirmThisThread: "Please react to this message to confirm the prefix change for your chat box",
-      successGlobal: "The prefix of the bot system has been changed to: %1",
-      successThisThread: "The prefix of your chat box has been changed to: %1",
-      myPrefix: "🌐 Bot System Prefix: %1\n🛸 Your Chat Box Prefix: %2\nPrefix executed time (Asia/Manila): %3",
-      philippinesTimezone: "🇵🇭 Philippines Timezone: GMT+8"
+      reset: "𝐂𝐥𝐚𝐫𝐤 𝐏𝐫𝐞𝐟𝐢𝐱 𝐇𝐚𝐬 𝐁𝐞𝐞𝐧 𝐑𝐞𝐬𝐞𝐭 𝐓𝐨 𝐃𝐞𝐟𝐚𝐮𝐥𝐭: %1",        𝐎𝐧𝐥𝐲𝐚𝐝𝐦𝐢𝐧: "𝐬𝐨𝐫𝐫𝐲, 𝐎𝐧𝐥𝐲 𝐀𝐝𝐦𝐢𝐧 𝐂𝐚𝐧 𝐂𝐡𝐚𝐧𝐠𝐞 𝐓𝐡𝐞 𝐏𝐫𝐞𝐟𝐢𝐱 𝐎𝐟 𝐓𝐡𝐞 𝐂𝐥𝐚𝐫𝐤 𝐁𝐨𝐭 𝐒𝐲𝐬𝐭𝐞𝐦.",        𝐂𝐨𝐧𝐟𝐢𝐫𝐦𝐠𝐥𝐨𝐛𝐚𝐥: "𝐫𝐞𝐚𝐜𝐭 𝐓𝐨 𝐓𝐡𝐢𝐬 𝐌𝐞𝐬𝐬𝐚𝐠𝐞 𝐓𝐨 𝐂𝐨𝐧𝐟𝐢𝐫𝐦 𝐂𝐡𝐚𝐧𝐠𝐢𝐧𝐠 𝐂𝐥𝐚𝐫𝐤'𝐬 𝐆𝐥𝐨𝐛𝐚𝐥 𝐏𝐫𝐞𝐟𝐢𝐱.",        𝐂𝐨𝐧𝐟𝐢𝐫𝐦𝐭𝐡𝐢𝐬𝐭𝐡𝐫𝐞𝐚𝐝: "𝐫𝐞𝐚𝐜𝐭 𝐓𝐨 𝐓𝐡𝐢𝐬 𝐌𝐞𝐬𝐬𝐚𝐠𝐞 𝐓𝐨 𝐂𝐨𝐧𝐟𝐢𝐫𝐦 𝐂𝐡𝐚𝐧𝐠𝐢𝐧𝐠 𝐂𝐥𝐚𝐫𝐤'𝐬 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐧 𝐘𝐨𝐮𝐫 𝐂𝐡𝐚𝐭 𝐁𝐨𝐱.",        𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐠𝐥𝐨𝐛𝐚𝐥: "𝐜𝐡𝐚𝐧𝐠𝐞𝐝 𝐓𝐡𝐞 𝐏𝐫𝐞𝐟𝐢𝐱 𝐎𝐟 𝐂𝐥𝐚𝐫𝐤'𝐬 𝐆𝐥𝐨𝐛𝐚𝐥 𝐒𝐲𝐬𝐭𝐞𝐦 𝐓𝐨: %1",        𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐭𝐡𝐢𝐬𝐭𝐡𝐫𝐞𝐚𝐝: "𝐜𝐡𝐚𝐧𝐠𝐞𝐝 𝐂𝐥𝐚𝐫𝐤'𝐬 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐧 𝐘𝐨𝐮𝐫 𝐂𝐡𝐚𝐭 𝐁𝐨𝐱 𝐓𝐨: %1",
+      myPrefix: "╭────────────⦿\n│✪𝐌𝐲 𝐏𝐫𝐞𝐟𝐢𝐱 𝐈𝐬「 %2 」\n│✪𝐌𝐨𝐝𝐞: 「𝐏𝐮𝐛𝐥𝐢𝐜」\n│✪𝐎𝐰𝐧𝐞𝐫:「 𝐄𝐥𝐨𝐡𝐢𝐦𝐞 」\n│✪𝐄𝐧𝐣𝐨𝐲 𝐔𝐬𝐢𝐧𝐠😄\n╰────────────⦿"
     }
   },
 
@@ -74,8 +43,7 @@ module.exports = {
         return message.reply(getLang("onlyAdmin"));
       else
         formSet.setGlobal = true;
-    }
-    else {
+    } else {
       formSet.setGlobal = false;
     }
 
@@ -93,8 +61,7 @@ module.exports = {
       global.GoatBot.config.prefix = newPrefix;
       fs.writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
       return message.reply(getLang("successGlobal", newPrefix));
-    }
-    else {
+    } else {
       await threadsData.set(event.threadID, newPrefix, "data.prefix");
       return message.reply(getLang("successThisThread", newPrefix));
     }
@@ -103,13 +70,7 @@ module.exports = {
   onChat: async function ({ event, message, getLang }) {
     if (event.body && event.body.toLowerCase() === "prefix") {
       return () => {
-        const philippinesTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Manila" });
-        return message.reply(getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID), philippinesTime));
-      };
-    }
-    else if (event.body && event.body.toLowerCase() === "timezone philippines") {
-      return () => {
-        return message.reply(getLang("philippinesTimezone"));
+        return message.reply(getLang("myPrefix", global.GoatBot.config.prefix, utils.getPrefix(event.threadID)));
       };
     }
   }
